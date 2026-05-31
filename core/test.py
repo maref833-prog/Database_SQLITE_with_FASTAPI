@@ -18,13 +18,13 @@ class user(base):
     age = Column(Integer)
     
     
-    addresses = relationship("Address", back_populates="user")  # به کلاس Address اشاره می‌کند
+    addresses = relationship("Address", back_populates="user") 
 
     def __repr__(self):
         return f"user={self.id}, name={self.name}, lastname={self.last}, age={self.age}"
 
 class Address(base): 
-    __tablename__ = "addresses"  # 
+    __tablename__ = "addresses"  
     id = Column(Integer, primary_key=True, autoincrement=True)
     name_id = Column(Integer, ForeignKey("users.id"))  
     city = Column(String(50))
@@ -61,9 +61,9 @@ use = ses.query(user).filter_by(name="s").first()
 if use:
     use.name = "mamad"
     ses.commit()
-    print("3. Updated:", use)
+    print(" Updated:", use)
 else:
-    print("3. No user found with name 's'")
+    print(" No user found with name 's'")
 
 # فیلتر برای بالای 25 سال
 print("\n Users older than 25:")
@@ -110,6 +110,7 @@ if user_aref:
 print("\n User with addresses:")
 user_with_address = ses.query(user).filter_by(name="aref").first()
 if user_with_address:
-    print(f"   User: {user_with_address.name} {user_with_address.last}")
+    print(f"User: {user_with_address.name} {user_with_address.last}")
     for addr in user_with_address.addresses:
-        print(f"     Address: {addr.city}, Code: {addr.code_city}")
+        print(f"Address: {addr.city}, Code: {addr.code_city}")
+print("akhar")
