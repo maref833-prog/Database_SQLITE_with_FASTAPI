@@ -30,8 +30,8 @@ class Address(base):
     city = Column(String(50))
     code_city = Column(Integer)
     
-    # ✅ اصلاح: back_populates باید به "addresses" در کلاس user اشاره کند
-    user = relationship("user", back_populates="addresses")  # back_populates="addresses" (جمع)
+   
+    user = relationship("user", back_populates="addresses")  
     
     def __repr__(self):
         return f"Address(id={self.id}, user_id={self.name_id}, city={self.city}, code={self.code_city})"
@@ -54,7 +54,7 @@ if user_found:
         ses.commit()
         print("Deleted:", item)
 else:
-    print("2. No user found with name 'aef'")
+    print(" No user found with name 'aef'")
 
 # پیدا کردن و ویرایش کاربر با نام "s"
 use = ses.query(user).filter_by(name="s").first()
@@ -66,21 +66,21 @@ else:
     print("3. No user found with name 's'")
 
 # فیلتر برای بالای 25 سال
-print("\n4. Users older than 25:")
+print("\n Users older than 25:")
 sss = ses.query(user).filter(user.age > 25).all()
 for u in sss:
     print(f"   {u}")
 
 # جمع کردن سن ها
 summ = ses.query(func.sum(user.age)).scalar()
-print(f"\n5. Sum of ages: {summ}")
+print(f"\n Sum of ages: {summ}")
 
 # میانگین سن
 avg = ses.query(func.avg(user.age)).scalar()
-print(f"6. Average age: {avg}")
+print(f" Average age: {avg}")
 
 # اضافه کردن چند کاربر دیگر
-print("\n7. Adding more users...")
+print("\n Adding more users...")
 users_to_add = [
     user(name="ali", age=30, last="rezaei"),
     user(name="sara", age=22, last="ahmadi"),
@@ -92,13 +92,13 @@ ses.commit()
 print(f"   Added {len(users_to_add)} users")
 
 # نمایش همه کاربران
-print("\n8. All users:")
+print("\n All users:")
 all_users = ses.query(user).all()
 for u in all_users:
     print(f"   {u}")
 
 # اضافه کردن آدرس برای کاربر aref
-print("\n9. Adding address for aref...")
+print("\n Adding address for aref...")
 user_aref = ses.query(user).filter_by(name="aref").first()
 if user_aref:
     address = Address(name_id=user_aref.id, city="Tehran", code_city=12345)
@@ -107,7 +107,7 @@ if user_aref:
     print(f"   Added: {address}")
 
 # نمایش کاربر با آدرس‌هایش
-print("\n10. User with addresses:")
+print("\n User with addresses:")
 user_with_address = ses.query(user).filter_by(name="aref").first()
 if user_with_address:
     print(f"   User: {user_with_address.name} {user_with_address.last}")
